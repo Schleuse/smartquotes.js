@@ -1,28 +1,22 @@
-const path         = require('path'),
-      MinifyPlugin = require('babel-minify-webpack-plugin');
+var path = require('path');
 
 module.exports = {
-  entry: './lib/index.js',
-  plugins: [
-    new MinifyPlugin()
-  ],
-  output: {
-    filename: 'smartquotes.js',
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'umd',
-    library: 'smartquotes'
-  },
-  devtool: 'source-map',
-  module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        exclude: [/node_modules/],
-        options: {
-          presets: ['es2015']
-        }
-      }
-    ]
-  }
+    mode: 'production',
+    // Change to your "entry-point".
+    entry: './lib/index',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'smartquotes.js'
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.json']
+    },
+    module: {
+        rules: [{
+            // Include ts, tsx, js, and jsx files.
+            test: /\.(ts|js)x?$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+        }],
+    }
 };

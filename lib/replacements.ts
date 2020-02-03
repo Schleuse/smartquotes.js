@@ -1,4 +1,10 @@
-module.exports = [
+
+type ReplacerFunction = (retainLength: boolean) => string;
+
+type Entry = [RegExp, ReplacerFunction | string];
+
+
+const replacements: Entry[] = [
   // triple prime
   [/'''/g, retainLength => '\u2034' + (retainLength ? '\u2063\u2063' : '')],
   // beginning "
@@ -23,4 +29,6 @@ module.exports = [
   [/"/g, '\u2033'],
   // prime
   [/'/g, '\u2032']
-];
+]
+
+export default replacements;

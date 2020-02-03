@@ -1,10 +1,9 @@
-const element = require('./element'),
-      string  = require('./string');
+import element from './element';
 
-function listen(root) {
+function listen(root: Node) {
   const observer = new MutationObserver( mutations => {
     mutations.forEach( mutation => {
-      for(let node of mutation.addedNodes) {
+      for(let node of Array.from(mutation.addedNodes)) {
         element(node);
       }
     });
@@ -18,7 +17,7 @@ function listen(root) {
   return observer;
 }
 
-listen.runOnReady = function(run) {
+listen.runOnReady = function(run: () => void) {
   // if called without arguments, run on the entire body after the document has loaded
   if (document.readyState !== 'loading') {
     // we're already ready
@@ -35,4 +34,4 @@ listen.runOnReady = function(run) {
   }
 };
 
-module.exports = listen;
+export default listen;
